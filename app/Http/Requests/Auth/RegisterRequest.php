@@ -14,7 +14,7 @@ class RegisterRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,15 +25,16 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required|string|min:3|alpha_dash',
-            'last_name' => 'required|string|min:3|alpha_dash',
-            'email' => 'required|email|unique:users',
-            'password' => ['required', Password::min(8)
+            'first_name' => ['required', 'string', 'min:3', 'alpha_dash'],
+            'last_name' => ['required', 'string', 'min:3', 'alpha_dash'],
+            'email' => ['required', 'email', 'unique:users'],
+            'password' => ['required', 'confirmed', Password::min(8)
                 ->mixedCase()
                 ->letters()
                 ->numbers()
                 ->symbols()
                 ->uncompromised(),],
+            'password_confirmation' => ['required']
         ];
     }
 }

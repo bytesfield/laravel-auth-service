@@ -19,6 +19,18 @@ trait JsonResponse
     }
 
     /**
+     * Generates a bad request response for a request
+     *
+     * @param string $message
+     *
+     * @return \Illuminate\Support\Facades\Response
+     */
+    public function badRequest(string $message)
+    {
+        return $this->buildResponse($message, 'failed', config('errors.codes.bad_request'));
+    }
+
+    /**
      * Generates a not found response for a request
      *
      * @param string $message
