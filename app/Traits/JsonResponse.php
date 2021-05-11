@@ -118,6 +118,18 @@ trait JsonResponse
     }
 
     /**
+     * Generates a server error response for a request
+     *
+     * @param string $message
+     *
+     * @return \Illuminate\Support\Facades\Response
+     */
+    public function serverError(string $message)
+    {
+        return $this->buildResponse($message, 'failed', config('errors.codes.server_error'));
+    }
+
+    /**
      * Generates a forbidden response for a request
      *
      * @param string $message

@@ -25,7 +25,7 @@ class RegisterController extends Controller
 
         $user = $action->execute($request);
 
-        $response = $this->respondWithToken($user/*, auth()->login($user->id)*/);
+        $response = $this->respondWithToken($user, auth()->login($user->id));
 
         return $this->success('Registration successfully', $response);
     }
@@ -38,11 +38,11 @@ class RegisterController extends Controller
      *
      * @return array
      */
-    protected function respondWithToken(User $user/*, string $token*/): array
+    protected function respondWithToken(User $user, string $token): array
     {
         return [
-            //'token' => $token,
-            //'expires_at' => now()->addSeconds(auth()->factory()->getTTL() * 60)->timestamp,
+            'token' => $token,
+            'expires_at' => now()->addSeconds(auth()->factory()->getTTL() * 60)->timestamp,
             'user' => new UserResource($user),
         ];
     }
