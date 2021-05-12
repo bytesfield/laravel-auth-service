@@ -20,9 +20,8 @@ class EmailVerificationController extends Controller
             'email' => 'required|email|exists:users',
         ]);
 
-        if (!$user = User::firstWhere(['email' => $request->email])) {
-            return $this->notFound('Email does not exist.');
-        }
+        $user = User::firstWhere(['email' => $request->email]);
+
         if (!$user->email_token) {
             return $this->badRequest('Email has already been verified.');
         }
@@ -34,8 +33,9 @@ class EmailVerificationController extends Controller
 
     public function verifyEmailToken($email_token)
     {
+        $user = User::firstWhere(['email_token' => $email_token]);
 
-        if (!$user = User::firstWhere(['email_token' => $email_token])) {
+        if (!$user) {
             return $this->badRequest('Email token has been used.');
         }
 

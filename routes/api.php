@@ -33,5 +33,5 @@ Route::prefix('auth')->group(function () {
     Route::post('login', [LoginController::class, 'authenticate'])->name('login');
     Route::get('logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
     Route::post('resend-verification-mail', [EmailVerificationController::class, 'resendEmailToken'])->name('resend-verification-email');
-    Route::get('verify-email/{user_token}', [EmailVerificationController::class, 'verifyEmailToken'])->name('verify-email');
+    Route::get('verify-email/{email_token}', [EmailVerificationController::class, 'verifyEmailToken'])->name('verify-email');
 });
