@@ -332,7 +332,7 @@ ul.social li{
           	<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
           		<tr>
           			<td class="logo" style="text-align: center;">
-			            <h1><a href="#">Email-Verification</a></h1>
+			            <h1><a href="#">Password Reset</a></h1>
 			          </td>
           		</tr>
           	</table>
@@ -349,11 +349,12 @@ ul.social li{
             	<tr>
             		<td>
             			<div class="text" style="padding: 0 2.5em; text-align: center;">
-            				<h3>Hello {{ $user->first_name }}</h3>
-                            <h3>Please Verify your Email</h3>
-            				<h6>Use the following link within the next 10 minutes to activate your account</h6>
-                            <p>Use this link or the button below {{ config('app.url').'/api/auth/verify-email/'.$user->email_token }}</p>
-            				<p><a href="{{ config('app.url').'/api/auth/verify-email/'.$user->email_token }}" class="btn btn-primary">Click to Verify</a></p>
+            				<h3>Hello {{ $user->first_name }} {{ $user->last_name }}</h3>
+
+            				<p> You recently requested to reset the password for your account. Use the button below to reset it. <strong>This password reset is only valid for the next 1 hour.</strong></p>
+            				<p><a href="{{ config('app.url'). '/reset-password?' . $urlQuery }}" class="btn btn-primary">Click to Verify</a></p>
+							 <p> If you’re having trouble with the button above, copy and paste the URL below into your web browser.</p>
+							 <p>{{ config('app.url'). '/reset-password?' . $urlQuery }}</p>
             			</div>
             		</td>
             	</tr>

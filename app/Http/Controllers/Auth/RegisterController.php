@@ -25,25 +25,7 @@ class RegisterController extends Controller
 
         $user = $action->execute($request);
 
-        $response = $this->respondWithToken($user, auth()->login($user->id));
 
-        return $this->success('Registration successfully', $response);
-    }
-
-    /**
-     * Format the response with the token.
-     *
-     * @param \App\Models\User $user
-     * @param string $token
-     *
-     * @return array
-     */
-    protected function respondWithToken(User $user, string $token): array
-    {
-        return [
-            'token' => $token,
-            'expires_at' => now()->addSeconds(auth()->factory()->getTTL() * 60)->timestamp,
-            'user' => new UserResource($user),
-        ];
+        return $this->success('Registration successfully', array($user));
     }
 }
