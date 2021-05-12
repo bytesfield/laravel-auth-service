@@ -2,19 +2,33 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Traits\ApiResponse;
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use App\Traits\JsonResponse;
 
 class RefreshTokenController extends Controller
 {
-    use JsonResponse;
+    use ApiResponse;
 
-    public function refresh()
+    /**
+     * Refresh token
+     *
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function refresh(): JsonResponse
     {
         return $this->createNewToken(auth()->refresh());
     }
 
-    protected function createNewToken($token)
+    /**
+     * Create new token
+     *
+     * @param string $token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function createNewToken($token): JsonResponse
     {
         $data = [
             'token' => $token,

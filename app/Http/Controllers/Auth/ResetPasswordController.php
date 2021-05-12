@@ -3,18 +3,25 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
-use App\Traits\JsonResponse;
-use Illuminate\Http\Request;
+use App\Traits\ApiResponse;
 use App\Models\PasswordReset;
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Auth\PasswordResetRequest;
 
 class ResetPasswordController extends Controller
 {
-    use JsonResponse;
+    use ApiResponse;
 
-    public function resetPassword(PasswordResetRequest $request)
+    /**
+     * Reset password.
+     *
+     * @param \App\Http\Requests\Auth\PasswordResetRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function resetPassword(PasswordResetRequest $request): JsonResponse
     {
 
         $reset = $this->verifyToken($request->token);
@@ -35,6 +42,13 @@ class ResetPasswordController extends Controller
         return $this->success('Password reset successfully');
     }
 
+    /**
+     * Verify Token
+     *
+     * @param string $token
+     *
+     * @return \App\Models\PasswordReset
+     */
     private function verifyToken(string $token)
     {
         $reset = PasswordReset::firstWhere(['token' => $token]);

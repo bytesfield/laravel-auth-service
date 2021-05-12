@@ -10,7 +10,6 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-
     /**
      * Create a user and authenticate the user.
      *

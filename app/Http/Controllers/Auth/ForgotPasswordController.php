@@ -3,19 +3,28 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Traits\ApiResponse;
 use Illuminate\Support\Str;
-use App\Traits\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\PasswordReset;
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Mail\Auth\PasswordResetMail;
 use Illuminate\Support\Facades\Mail;
 
 class ForgotPasswordController extends Controller
 {
-    use JsonResponse;
+    use ApiResponse;
 
-    public function resetPassword(Request $request)
+    /**
+     * Reset Password.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function resetPassword(Request $request): JsonResponse
     {
         $request->validate([
             'email' => 'required|email',
@@ -32,6 +41,13 @@ class ForgotPasswordController extends Controller
         return $this->success('Reset password link has been sent to your email.');
     }
 
+    /**
+     * Reset Password.
+     *
+     * @param \App\Models\User $user
+     *
+     * @return \App\Models\PasswordReset
+     */
     private function createResetToken(User $user): PasswordReset
     {
         return PasswordReset::create([

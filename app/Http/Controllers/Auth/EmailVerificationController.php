@@ -3,18 +3,27 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
-use App\Traits\JsonResponse;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Auth\UserEmailVerification;
 use App\Http\Resources\Auth\UserResource;
+use Illuminate\Http\JsonResponse;
 
 class EmailVerificationController extends Controller
 {
-    use JsonResponse;
+    use ApiResponse;
 
-    public function resendEmailToken(Request $request)
+    /**
+     * Resend Email Token to user.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function resendEmailToken(Request $request): JsonResponse
     {
         $request->validate([
             'email' => 'required|email|exists:users',
@@ -31,7 +40,16 @@ class EmailVerificationController extends Controller
         return $this->success('Email token sent successfully.');
     }
 
-    public function verifyEmailToken($email_token)
+
+    /**
+     * Verify Email Token.
+     *
+     * @param string $email_token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function verifyEmailToken($email_token): JsonResponse
     {
         $user = User::firstWhere(['email_token' => $email_token]);
 

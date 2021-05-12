@@ -2,17 +2,25 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Traits\JsonResponse;
+use App\Traits\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Resources\Auth\UserResource;
+use Illuminate\Http\JsonResponse;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 class LoginController extends Controller
 {
-    use JsonResponse;
+    use ApiResponse;
 
-    public function authenticate(LoginRequest $request)
+    /**
+     * Authenticate user.
+     *
+     * @param \App\Http\Requests\Auth\LoginRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function authenticate(LoginRequest $request): JsonResponse
     {
         $credentials = $request->only('email', 'password');
 
@@ -39,9 +47,9 @@ class LoginController extends Controller
      *
      * @param string $token
      *
-     * @return array
+     * @return \Illuminate\Http\JsonResponse
      */
-    protected function respondWithToken(string $token)
+    protected function respondWithToken(string $token): JsonResponse
     {
         $user = auth()->user();
         $data = [
@@ -57,7 +65,7 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function logout()
+    public function logout(): JsonResponse
     {
         auth()->logout();
 

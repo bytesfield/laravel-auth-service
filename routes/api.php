@@ -31,7 +31,7 @@ Route::prefix('auth')->group(function () {
     Route::post('register', [RegisterController::class, 'store'])->name('register');
     Route::post('refresh-token', [RefreshTokenController::class, 'refresh'])->name('refresh-token')->middleware('jwt.verify');
     Route::post('login', [LoginController::class, 'authenticate'])->name('login');
-    Route::get('logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
+    Route::post('logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
     Route::post('resend-verification-mail', [EmailVerificationController::class, 'resendEmailToken'])->name('resend-verification-email');
     Route::get('verify-email/{email_token}', [EmailVerificationController::class, 'verifyEmailToken'])->name('verify-email');
 });

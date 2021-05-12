@@ -14,7 +14,7 @@ class LogoutTest extends TestCase
     {
         $this->authUser();
 
-        $response = $this->get(route('logout'));
+        $response = $this->post(route('logout'));
 
         $response->assertStatus(200)->assertExactJson([
             'message' => 'User successfully logged out.',
@@ -31,6 +31,6 @@ class LogoutTest extends TestCase
             'Accept' => 'application/json',
             'AUTHORIZATION' => 'Bearer ' . $invalidToken,
         ];
-        $this->get(route('logout'), [], $headers)->assertStatus(401);
+        $this->post(route('logout'), [], $headers)->assertStatus(401);
     }
 }
